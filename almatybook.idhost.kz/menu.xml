@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+  <item title="Home" link="page1.php"/>
+  <item title="About Me" link="page2.php"/>
+  <item title="My Family" link="page3.php"/>
+  <item title="Photos" link="page4.php"/>
+  <item title="Resume" link="page5.php"/>
+  <item title="Favorite Links" link="page6.php"/>
+  <item title="Contact Me" link="page7.php"/>
+</menu>
