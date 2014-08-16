@@ -1,11 +1,14 @@
 ﻿<?php
 require_once 'excel_reader2.php';
-$exfilename='d.xls';
+
+$exfilename=$_POST['exfile'];
+$newtbl=$_POST['tablename'];
+if ((!$exfilename)||(!$newtbl)) exit;
 $data= new Spreadsheet_Excel_Reader($exfilename,false,"CP1251");
 
 $user='u1114105_omir';
 $pass='newpara46ABDR';
-$newtbl='tabletemp';
+
 $dbh = new PDO('mysql:host=mysql38.cp.idhost.kz;dbname=db1114105_books', $user, $pass);
 $stmt=$dbh->prepare("set names 'utf8'");
 $stmt->execute();
@@ -28,7 +31,7 @@ if ($j<$data->colcount(0)) $qv=$qv.', ';
 
 }
 $qv=$qv.');';
-echo $qv;
+
 $stmt=$dbh->prepare($qv);
 $stmt->execute();
 for ($i=1;$i<$data->rowcount(0);$i++)
@@ -48,6 +51,35 @@ echo $qv."   it is $i echo<br>";
 $stmt=$dbh->prepare($qv);
 $stmt->execute();
 }
+$filesex=scandir('/EX');
+$fex=array();
+for ($i=0;$i<count($filesex);$i++)
+{
+	$tempf=$filesex[$i];
+	$temp = explode(".", $tempf);
+$extension = end($temp);
+if ($extension=='xls') $fex[]=$tempf;
+	
+	
+	
+}
 
+
+
+?>
+<html>
+<body>
+
+<form  method="post">
+<?php 
+for ($i=0;$i<count($fex);$i++)
+echo "  <label>$fex[$i]</label><input type=\"radio\" name=\"exfile\" value=\"$fex[$i]\" /></br>";
+?>
+<input type="text" name="tablename"></br>
+<input type="submit" name="submit" value="Submit">
+</form>
+
+</body>
+</html> 
 
 
