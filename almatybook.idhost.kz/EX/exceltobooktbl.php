@@ -3,7 +3,8 @@ require_once 'excel_reader2.php';
 
 $exfilename=$_POST['exfile'];
 $newtbl=$_POST['tablename'];
-if ((!$exfilename)||(!$newtbl)) exit;
+if (($exfilename)&&(!$newtbl)) ;
+{
 $data= new Spreadsheet_Excel_Reader($exfilename,false,"CP1251");
 
 $user='u1114105_omir';
@@ -51,7 +52,10 @@ echo $qv."   it is $i echo<br>";
 $stmt=$dbh->prepare($qv);
 $stmt->execute();
 }
-$filesex=scandir('/EX');
+}
+$dir=dirname(_DIR_);
+$filesex=scandir($dir);
+
 $fex=array();
 for ($i=0;$i<count($filesex);$i++)
 {
@@ -72,6 +76,8 @@ if ($extension=='xls') $fex[]=$tempf;
 
 <form  method="post">
 <?php 
+print_r($filesex);
+echo "di==".$dir."==";
 for ($i=0;$i<count($fex);$i++)
 echo "  <label>$fex[$i]</label><input type=\"radio\" name=\"exfile\" value=\"$fex[$i]\" /></br>";
 ?>
