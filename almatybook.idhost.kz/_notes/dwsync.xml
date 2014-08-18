@@ -9,7 +9,7 @@
 <file name="d.xls" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130523208000000000" remote="130523208000000000" Dst="2" />
 <file name="ie.css" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130519865400000000" remote="130519865400000000" Dst="2" />
 <file name="index.html~" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130519865400000000" remote="130519865400000000" Dst="2" />
-<file name="index.php" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130522306800000000" remote="130522306800000000" Dst="2" />
+<file name="index.php" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130528283121219961" remote="130528030800000000" Dst="2" />
 <file name="index.wml" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130519865400000000" remote="130519865400000000" Dst="2" />
 <file name="init.php" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130520627400000000" remote="130520627400000000" Dst="2" />
 <file name="logo.gif" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130519865400000000" remote="130519865400000000" Dst="2" />
@@ -32,6 +32,9 @@
 <file name="Thumbs.db" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130519865400000000" remote="130519865400000000" Dst="2" />
 <file name="top_bg.jpg" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130519865400000000" remote="130519865400000000" Dst="2" />
 <file name="top_body_bg.jpg" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130519865400000000" remote="130519865400000000" Dst="2" />
-<file name="upload.php" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130526546276414657" remote="130526293800000000" Dst="2" />
+<file name="upload.php" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130526559416886249" remote="130528009200000000" Dst="2" />
 <file name="upload.html" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130526495263866906" remote="130526242800000000" Dst="2" />
+<file name="bootstrap.css" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130528059127727909" remote="130527810600000000" Dst="2" />
+<file name="bootstrap.js" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130528059553104501" remote="130527810600000000" Dst="2" />
+<file name="jumbotron.css" server="d1114105-15420.idhost.kz//webspace/httpdocs/" local="130482742080000000" remote="130527817200000000" Dst="2" />
 </dwsync>

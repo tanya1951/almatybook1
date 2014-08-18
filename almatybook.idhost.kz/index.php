@@ -1,14 +1,86 @@
-<?php
-require_once('init.php');
-$loadClass = SB_Modules::loadClass('Modules_Statistics');
-$statisticsObject = new Modules_Statistics('xjlgnsj4pry');
-$statisticsObject->init();
-$statisticsObject->processAction();
-?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Заголовок сайта - Home</title><meta name="DESCRIPTION" content=""><meta name="KEYWORDS" content="Букинист на Никольском"><meta name="GENERATOR" content="Parallels Plesk Sitebuilder 4.5.0"><link href="css/styles.css?template=av-075&colorScheme=green&header=&button=buttons1" rel="stylesheet" type="text/css"></head><body style="margin:0px;"><center><table border="0" cellpadding="0" cellspacing="0" class="main-bg" style="width: 100%; height: 100%;"><tr><td></td><td align="center" height="69" background="images/header_bg.gif?template=av-075&colorScheme=green&header=&button=buttons1"><table border="0" cellpadding="0" cellspacing="0" height="69"><tr><td align="center"><table border="0" cellpadding="0" cellspacing="0" style="margin-left:20pt;margin-right:20pt "><tr><td align="center" style="padding-bottom:4px"><img src="images/header_bullet.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="15" height="15" alt=""></td></tr><tr><td align="center" class="amenu"><a href="page1.php" class="amenu">Home</a></td></tr></table></td><td width="1" bgcolor="#5A656D"></td><td align="center"><table border="0" cellpadding="0" cellspacing="0" style="margin-left:20pt;margin-right:20pt "><tr><td align="center" style="padding-bottom:4px"><img src="images/header_bullet.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="15" height="15" alt=""></td></tr><tr><td align="center" class="menu"><a href="page2.php" class="menu">About Me</a></td></tr></table></td><td width="1" bgcolor="#5A656D"></td><td align="center"><table border="0" cellpadding="0" cellspacing="0" style="margin-left:20pt;margin-right:20pt "><tr><td align="center" style="padding-bottom:4px"><img src="images/header_bullet.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="15" height="15" alt=""></td></tr><tr><td align="center" class="menu"><a href="page3.php" class="menu">My Family</a></td></tr></table></td><td width="1" bgcolor="#5A656D"></td><td align="center"><table border="0" cellpadding="0" cellspacing="0" style="margin-left:20pt;margin-right:20pt "><tr><td align="center" style="padding-bottom:4px"><img src="images/header_bullet.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="15" height="15" alt=""></td></tr><tr><td align="center" class="menu"><a href="page4.php" class="menu">Photos</a></td></tr></table></td><td width="1" bgcolor="#5A656D"></td><td align="center"><table border="0" cellpadding="0" cellspacing="0" style="margin-left:20pt;margin-right:20pt "><tr><td align="center" style="padding-bottom:4px"><img src="images/header_bullet.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="15" height="15" alt=""></td></tr><tr><td align="center" class="menu"><a href="page5.php" class="menu">Resume</a></td></tr></table></td><td width="1" bgcolor="#5A656D"></td><td align="center"><table border="0" cellpadding="0" cellspacing="0" style="margin-left:20pt;margin-right:20pt "><tr><td align="center" style="padding-bottom:4px"><img src="images/header_bullet.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="15" height="15" alt=""></td></tr><tr><td align="center" class="menu"><a href="page6.php" class="menu">Favorite Links</a></td></tr></table></td><td width="1" bgcolor="#5A656D"></td><td align="center"><table border="0" cellpadding="0" cellspacing="0" style="margin-left:20pt;margin-right:20pt "><tr><td align="center" style="padding-bottom:4px"><img src="images/header_bullet.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="15" height="15" alt=""></td></tr><tr><td align="center" class="menu"><a href="page7.php" class="menu">Contact Me</a></td></tr></table></td></tr></table></td></tr><tr><td></td><td align="center" valign="top" height="245"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td background="images/header01.jpg?template=av-075&colorScheme=green&header=&button=buttons1" width="100%"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="100%" height="245" align="left" background="images/header02.jpg?template=av-075&colorScheme=green&header=&button=buttons1" style="padding-left:50px;background-position:right;background-repeat:no-repeat"><table width="200" border="0" cellspacing="0" cellpadding="0"><tr><td><div align="center"><a href="./"><img src="images/logo/880f7ed841ab2d4fb3f59dc77dda6e87.jpg?template=av-075&colorScheme=green&header=&button=buttons1" border="0" alt=""></a></div></td></tr><tr><td align="center"><span class="company">Заголовок сайта</span></td></tr><tr><td align="center"><span class="slogan">Подзаголовок</span></td></tr></table></td></tr></table></td><td width="382"><div align="right"><img src="images/header03.jpg?template=av-075&colorScheme=green&header=&button=buttons1" width="382" height="245" alt=""></div></td></tr></table></td></tr><tr><td></td><td width="100%" height="100%" align="center" valign="top"><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="100%" height="100%" align="right" valign="top"><table cellpadding="0" cellspacing="0" border="0" style="width: 100%; height: 100%;"><tr><td valign="top" class="pageContent" style="padding: 25px;" name="SB_stretch"><table cellpadding="0" cellspacing="0" border="0"><tr><td class="text-header">Home</td><td style="padding-left: 5px;"><img src="images/txtheader_bullet.gif?template=av-075&colorScheme=green&header=&button=buttons1" border="0" alt=""></td></tr></table><div style="width:0px; height:15px;"><span></span></div><p>Букинист на Никольском</p><?php
-echo $statisticsObject->getContentBlock();
-?></td><td width="2" style="padding-top: 25px"><table width="2" height="95%" border="0" cellpadding="0" cellspacing="0"><tr><td background="images/txt_bg.gif?template=av-075&colorScheme=green&header=&button=buttons1"></td></tr></table></td></tr></table></td><td width="214" align="right" valign="top"><table width="214" border="0" cellspacing="0" cellpadding="0" style="margin-top:25px;margin-left:25px;margin-bottom:25px"><tr><td></td></tr></table><img src="images/blank.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="214" height="1"></td></tr></table></td></tr><tr><td></td><td align="center" valign="bottom"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="100%" valign="bottom"><table width="100%" height="69" border="0" align="center" cellpadding="0" cellspacing="1" style="border:1px #47545C solid"><tr><td align="center" background="images/footer_bg01.gif?template=av-075&colorScheme=green&header=&button=buttons1" bgcolor="#59666E" height="69" valign="bottom"><table border="0" cellspacing="0" cellpadding="0" height="100%"><tr><td align="center"><a href="page1.php" class="amenu" id="abmenu">Home</a></td><td valign="bottom"><img src="images/bmenu_separator.gif?template=av-075&colorScheme=green&header=&button=buttons1" style="margin: 0px 5px 0px 5px;"></td><td align="center"><a href="page2.php" class="menu" id="bmenu2">About Me</a></td><td valign="bottom"><img src="images/bmenu_separator.gif?template=av-075&colorScheme=green&header=&button=buttons1" style="margin: 0px 5px 0px 5px;"></td><td align="center"><a href="page3.php" class="menu" id="bmenu3">My Family</a></td><td valign="bottom"><img src="images/bmenu_separator.gif?template=av-075&colorScheme=green&header=&button=buttons1" style="margin: 0px 5px 0px 5px;"></td><td align="center"><a href="page4.php" class="menu" id="bmenu4">Photos</a></td><td valign="bottom"><img src="images/bmenu_separator.gif?template=av-075&colorScheme=green&header=&button=buttons1" style="margin: 0px 5px 0px 5px;"></td><td align="center"><a href="page5.php" class="menu" id="bmenu5">Resume</a></td><td valign="bottom"><img src="images/bmenu_separator.gif?template=av-075&colorScheme=green&header=&button=buttons1" style="margin: 0px 5px 0px 5px;"></td><td align="center"><a href="page6.php" class="menu" id="bmenu6">Favorite Links</a></td><td valign="bottom"><img src="images/bmenu_separator.gif?template=av-075&colorScheme=green&header=&button=buttons1" style="margin: 0px 5px 0px 5px;"></td><td align="center"><a href="page7.php" class="menu" id="bmenu7">Contact Me</a></td></tr></table></td></tr></table></td><td height="69" background="images/footer_bg.gif?template=av-075&colorScheme=green&header=&button=buttons1"><div align="center" class="footer" style="width:240px">Нижний колонтитул</div></td></tr></table></td></tr><tr><td width="20"><img src="images/blank.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="20" height="5"></td><td width="100%" height="30" align="center" valign="top"><img src="images/blank.gif?template=av-075&colorScheme=green&header=&button=buttons1" width="760" height="5"></td></tr></table></center></body></html>
-<?php
-$statisticsObject->destruct();
-echo now();
-?>
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Букинист на НикольскомОбмен покупка продажа</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Le styles -->
+        <link href="bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+<!--<link href="style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">-->
+<link href="../banner.gif">
+        <!-- Scripts -->
+        <script type="text/javascript" src="bootstrap.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]--> <link rel="stylesheet" href="jumbotron.css">
+
+<script src="jquery.js"></script>	
+
+    </head>
+    <body class="claro">
+       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://almatybook.kz/">Букинист на Никольском</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+                          <li class="active"><a href="http://almatybook.kz/">Главная</a></li>
+      <li ><a href="catalog.php">Каталог</a></li>
+                            <li ><a href="zayava.php">Заявки</a></li>
+                            <li ><a href="top.php">ТОП 100</a></li>
+              </ul>
+            </li>
+          </ul>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </div> <div class="container">  <div class="jumbotron><div class="hero-unit">
+    <h1 align="center"><?php echo sprintf('Приглашаем в наш%s  МАГАЗИН%s', '<span class="zf-green">', '</span>'); ?></h1>
+    <p><?php echo ' Наш сайт является визитной карточкой магазина<span id="mig" > <span  class="redletter">БУКИНИСТ на Никольском</span></span><br>
+          В нашем магазине большой выбор книг практически любой тематики.Наряду с изданиями советского периода мы предлагаем современную художественную литературу и учебники.<br>
+Очень либеральные цены: на большинство наших книг цены от 100 до 500 тенге.<br>
+Также в нашем магазине возможно поменять с небольшой доплатой современные детективы и фантастику.<br>
+<table width="70%"><tr><td>Наши телефоны</td><td>272-98-41<br> 292-45-27<br> 8-701-242-04-67 </td></tr><tr><td>Наш адрес</td><td>Карасай-батыра 88-б<br>
+Гланые ворота Николского рынка<br> угол Карасай-батыра и Байтурсынова</td></tr></table> 
+        
+         Для жителей Алматы возможна доставка книг.'; ?></p>
+    <p><a class="btn btn-success btn-large" href="catalog" target="_blank"><?php echo 'Посмотреть каталог'; ?> &raquo;</a></p>
+</div>
+
+<div class="row">
+
+    <div class="span4">
+        <h2><?php echo 'Заявки на книги' ?></h2>
+        <p><?php echo 'Если вы ищете определённую книгу, например отдельный том полного собрания сочинений Л.Н.Толстого, то оставив у нас заявку, вы намного увеличите вероятность её нахождения.
+<br>Оформление на странице заявки.
+            ';?>
+        <p><a class="btn btn-success" href="zayava" target="_blank"><?php echo 'Заявки на книги'; ?> &raquo;</a></p>
+    </div>
+
+    <div class="span4">
+        <h2><?php echo 'Топ 100'; ?></h2>
+        <p><?php echo 'В мире художественной литературы огромное количество шедевров. Современный человек не в состоянии прочесть всё, даже самое лучшее. Но некоторые общепризнанные вершины мировой классики культурному человеку стыдно не знать. В этом разделе представлены списки лучших произведений, составленные известными литераторами и критиками.'; ?></p>
+        <p><a class="btn btn-success" href="top" target="_blank"><?php echo 'Лучшие произведения'; ?> &raquo;</a></p>
+   </div>
+
+   <div class="span4">
+       <h2><?php echo 'Отзывы и предложения';?></h2>
+       <p><?php echo sprintf('Администрация магазина будет благодарна посетителям сайта за предложения по улучшению сервиса магазина или сайта.<br>Мы внимательно рассмотрим все конструктивные %s',  'идеи.'); ?></p>
+       <p><a class="btn btn-success" href="feedback" target="_blank"><?php echo 'Оставить отзыв'; ?> &raquo;</a></p>
+   </div>
+</div>
+</div>
+ </div> <!-- /container -->
+  <hr>
+            <footer>
+                <p> 2014Карасай-батыра 88(б) Без перерыва, без выходных</p>
+            </footer>
+            
+
+</body></html>
