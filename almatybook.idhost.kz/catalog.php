@@ -1,6 +1,6 @@
 ﻿<?php
 
-require_once("EX/dbconfig.php");
+require_once("dbconfig.php");
 $cat=$_POST['catalog'];
 if ($cat===null)
 {$cat=$_GET['catalog'];
@@ -45,7 +45,7 @@ $searchstr=$searchstr."  and  author_book  in (select id_author from books_autho
 
 if (($pagecount===null)||($pagecount==0))
 {
-$querystr="select count(id_book)  from books_book where id_catalog=$cat and hide='show' ".$searchstr;
+$querystr="select count(id_book)  from books_book where id_catalog=$cat and hide_book='show' ".$searchstr;
 $stmt=$dbh->prepare($querystr);
 $stmt->execute();
 $rows = $stmt->fetchall();
@@ -64,7 +64,7 @@ if ($addpage>0)
 {
 	
 $addlimit=$addpage*30;	
-$querystr="select min(id_book)  from books_book where id_catalog=$cat and hide='show' and id_book>$pageoffset  ".$searchstr." order by id_book limit $addlimit ";
+$querystr="select min(id_book)  from books_book where id_catalog=$cat and hide_book='show' and id_book>$pageoffset  ".$searchstr." order by id_book limit $addlimit ";
 $stmt=$dbh->prepare($querystr);	
 $rows = $stmt->fetchall();
 if ($rows)	
@@ -82,7 +82,7 @@ if ($minuspage>0)
 {
 	
 $addlimit=$minuspage*30+1;	
-$querystr="select min(id_book)  from books_book where id_catalog=$cat and hide='show' and id_book<$pageoffset  ".$searchstr."order by id_book desc  limit $addlimit ";
+$querystr="select min(id_book)  from books_book where id_catalog=$cat and hide_book='show' and id_book<$pageoffset  ".$searchstr."order by id_book desc  limit $addlimit ";
 $stmt=$dbh->prepare($querystr);	
 $rows = $stmt->fetchall();
 if ($rows)	
@@ -96,8 +96,9 @@ if ($newoffset==$pageoffset)
 $pageoffset=$newoffset;	
 	
 }
-$querystr="select *  from books_book where id_catalog=$cat and hide='show' and id_book>$pageoffset  ".$searchstr." order by id_book limit 30 ";
+$querystr="select *  from books_book where id_catalog=$cat and hide_book='show' and id_book>$pageoffset  ".$searchstr." order by id_book limit 30 ";
 $stmt=$dbh->prepare($querystr);	
+$stmt->execute();
 $rows = $stmt->fetchall();
 
 }
@@ -114,16 +115,33 @@ $rows = $stmt->fetchall();
         <title>Букинист на НикольскомОбмен покупка продажа</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Le styles -->
-        <link href="EX/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
-<link href="EX/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="EX/bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+<link href="style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
 <link href="banner.gif">
         <!-- Scripts -->
-        <script src="EX/jquery.js"></script>	
-        <script type="text/javascript" src="EX/bootstrap.js"></script>
-<!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]--> <link rel="stylesheet" href="EX/claro.css">
+        <script src="jquery.js"></script>	
+        <script type="text/javascript" src="bootstrap.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]--> <link rel="stylesheet" href="claro.css">
 
+<style>
+.dopinfo{
+	
+	
+	color:#F36;
+	height:100px;
+	display:none;}
+.hei100
+{height:100px;}
+.dopinfo div{border-color:#6F0;
+	border-radius:10px;
+	border-style:double;
+	border-width:5px;
 
+	background:#60F;
+	}
+.clr{background:#90F;}
+</style>
 
     </head>
     <body class="claro">
@@ -151,27 +169,60 @@ $rows = $stmt->fetchall();
         </div><!--/.nav-collapse -->
       </div>
     </div> 
-    <table width="100%" border="3" cellspacing="3">
+    <div width="100%" border="3" >
   <caption>
     catalog
   </caption>
   <?php
   foreach ($rows as $row):?>
-  <tr>
-    <td><?php echo $row['name_book'];?></td>
-    <td><?php echo $row['author_book'];?></td>
-    <td><?php echo $row['description_book'];?></td>
-  </tr>
+ <div class="bookinfo">  <div style="display:block;height:100px">
+ <div class="row ">
+
+    <div class="col-md-4"><?php echo $row['name_book'];?></div>
+    <div class="col-md-4"><?php  $id_author= $row['id_author'];
+	$stmt2=$dbh->prepare("select name_author from books_author where id_author=$id_author;");
+	$stmt2->execute();
+	$rows2=$stmt2->fetchAll();
+	echo $rows2[0][0];?></div>
+    <div class="col-md-4"><?php echo $row['description_book'];?></div>
+    </div></div><div class="row">
+    <div class="dopinfo">
+    
+     <div class="col-md-4"><?php echo $row['name_book'];?></div>
+    <div class="col-md-4"><?php echo $row['name_book'];?></div>
+     <div class="col-md-4"><?php  $id_author= $row['id_author'];
+	$stmt2=$dbh->prepare("select name_author from books_author where id_author=$id_author;");
+	$stmt2->execute();
+	$rows2=$stmt2->fetchAll();
+	echo $rows2[0][0];?></div>
+   </div>
+   </div>
+  </div>
   <?php endforeach;?>
   
-</table>
+</div>
 
 
  </div> <!-- /container -->
-  <hr>
+  <hr><DIV class="hei100">&nbsp;</DIV>
+  <hr/>
             <footer>
                 <p> 2014Карасай-батыра 88(б) Без перерыва, без выходных</p>
             </footer>
             
-</hr>
+
+<script >
+
+
+
+$('.bookinfo').hover(function(){ $(this).addClass('activeinfo');$('.activeinfo .dopinfo').show(500);
+var dopinfoheight=$('.activeinfo .dopinfo').css('height');
+var dh=dopinfoheight.substr(1,3);
+dh=int(dh);
+if (dh<500) $('.activeinfo .dopinfo').css('height','50px');
+$('.activeinfo .dopinfo div').first().append("<div class='clr'>dh="+dh+"</div>");},function(){$( '.activeinfo .dopinfo').hide();$(this).removeClass('activeinfo'); });
+
+
+</script>
+
 </body></html>

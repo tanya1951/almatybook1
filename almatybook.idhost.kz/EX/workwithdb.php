@@ -76,7 +76,7 @@ echo "all right";
 
 ?></div>
 <div class="newgreeting"></div>
-<form id="fo" method="post"><input type="text" name="t"  id="t"><input type="hidden" value="hide" name="next"><input type="submit"></form>
+<form id="fo" method="post"><input type="text" name="t"  id="t"><input type="hidden" value="hide" name="next"></form>
 <script type="text/javascript">
 var st=$().jquery;
 var check=0;
