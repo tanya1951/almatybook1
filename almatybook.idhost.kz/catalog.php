@@ -17,95 +17,107 @@ $booknamelike=$_POST['booknamelike'];
 if ($booknamelike===null) $booknamelike="";
 $authorlike=$_POST['authorlike'];
 if ($authorlike===null) $authorlike="";
-$oldpage=$_GET['oldpage'];
 
-if  ($oldpage===null)
-$oldpage=1;
-$pageoffset=$_GET['pageoffset'];
-$pagecount=$_GET['pagecount'];
 
-if  ($pageoffset===null)
-$pageoffset=0;
-$addpage=$_GET['addpage'];
-if  ($addpage===null)
-$addpage=0;
-$minuspage=$_GET['minuspage'];
-if ($minuspage===null) $minuspage=0;
+
+
+
+
+
+
 $searchstr="";
 if ($publisher !=0)
 $searchstr=$searchstr."  and id_publisher=$publisher ";
 if ($yearfrom !=0)
-$searchstr=$searchstr."  and year_book<=$yearfrom ";
+$searchstr=$searchstr."  and (year_book>=$yearfrom or year_book is null) ";
 if ($yearto !=0)
-$searchstr=$searchstr."  and year_book>=$yearto ";
+$searchstr=$searchstr."  and (year_book<=$yearto or year_book is null) ";
 if ($booknamelike !="")
-$searchstr=$searchstr."  and  name_book  like  %'$booknamelike'% ";
+$searchstr=$searchstr."  and  name_book  like  '%$booknamelike%' ";
 if ($authorlike !="")
-$searchstr=$searchstr."  and  author_book  in (select id_author from books_author    where name_author like %'$authorlike'%) ";
+$searchstr=$searchstr."  and  author_book  in (select id_author from books_author    where name_author like '%$authorlike%') ";
 
+$pagecount=$_POST['pagecount'];
+if (($pagecount===null)||($pagecount==0))
+{
+$pagecount=$_GET['pagecount'];
 if (($pagecount===null)||($pagecount==0))
 {
 $querystr="select count(id_book)  from books_book where id_catalog=$cat and hide_book='show' ".$searchstr;
 $stmt=$dbh->prepare($querystr);
 $stmt->execute();
 $rows = $stmt->fetchall();
+
 if ($rows)	
-		$pagecount=$rows[0][0];
+		$pagecount=ceil($rows[0][0]/30);
 	if (($pagecount===null)||($pagecount==0))
 	{
-	echo "catalog is empty now";
+	echo "catalog is empty now".$querystr;
 	exit;	
 		
 	}
 }
+}
+$pageoffset=0;
+$currentpage=0;
 if ($pagecount>1)
 {
-if ($addpage>0)
-{
-	
-$addlimit=$addpage*30;	
-$querystr="select min(id_book)  from books_book where id_catalog=$cat and hide_book='show' and id_book>$pageoffset  ".$searchstr." order by id_book limit $addlimit ";
-$stmt=$dbh->prepare($querystr);	
+$currentpage=$_POST['currentpage'];
+if (($currentpage===null)||($currentpage==0))
+
+$currentpage=$_GET['currentpage'];
+if (($currentpage===null)||($currentpage==0)) $currentpage=1;
+if ($currentpage>$pagecount) $currentpage=$pagecount;
+$lim=($currentpage-1)*30;
+$querystr1="select id_book  from books_book where id_catalog=$cat and hide_book='show' ".$searchstr." order by id_book limit $lim";
+$stmt=$dbh->prepare($querystr1);
+$stmt->execute();
 $rows = $stmt->fetchall();
+
 if ($rows)	
-		$newoffset=$rows[0][0];
-if ($newoffset==$pageoffset)
-	{
-	echo "catalog is overwhelmed now";
-	exit;	
-		
-	}
-$pageoffset=$newoffset;	
-	
+		$pageoffset=$rows[$lim-1][0];
+if ($pageoffset===null) $pageoffset=0;
+if ($currentpage==1) $pageoffset=0;	
 }
-if ($minuspage>0)
-{
+
 	
-$addlimit=$minuspage*30+1;	
-$querystr="select min(id_book)  from books_book where id_catalog=$cat and hide_book='show' and id_book<$pageoffset  ".$searchstr."order by id_book desc  limit $addlimit ";
-$stmt=$dbh->prepare($querystr);	
-$rows = $stmt->fetchall();
-if ($rows)	
-		$newoffset=$rows[0][0];
-if ($newoffset==$pageoffset)
-	{
-	echo "catalog is overwhelmed now";
-	exit;	
-		
-	}
-$pageoffset=$newoffset;	
-	
-}
+
 $querystr="select *  from books_book where id_catalog=$cat and hide_book='show' and id_book>$pageoffset  ".$searchstr." order by id_book limit 30 ";
 $stmt=$dbh->prepare($querystr);	
 $stmt->execute();
 $rows = $stmt->fetchall();
 
+$querystr="select * from books_section";
+$stmt=$dbh->prepare($querystr);
+$stmt->execute();
+$rowsection = $stmt->fetchall();
+$jenre=array();
+$i=1;
+foreach ($rowsection as $row)
+{
+	$tempsection=$row['name_section'];
+	$tempidsec=$row['id_section'];
+$querystr="select * from books_catalog where id_section=$tempidsec;";
+
+$stmt=$dbh->query($querystr);
+//$stmt->execute();
+$rowcatalog = $stmt->fetchall();
+
+ $jenre[$tempsection]=array();
+foreach ($rowcatalog as $rcat)
+{
+	$tempcat=$rcat['name_catalog'];
+	$tempidcat=$rcat['id_catalog'];
+	$jenre[$tempsection][$tempidcat]=$tempcat;
+	
+	
+	
 }
-
-
-
-
+}
+$querystrpub='select id_publisher, name_publisher from books_publisher';
+$stmt=$dbh->prepare($querystrpub);
+$stmt->execute();
+$publisherrow=$stmt->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -118,16 +130,23 @@ $rows = $stmt->fetchall();
         <link href="bootstrap.css" media="screen" rel="stylesheet" type="text/css">
 <link href="style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="bootstrap-responsive.css" media="screen" rel="stylesheet" type="text/css">
+<link href="jquery-ui.css" media="screen" rel="stylesheet" type="text/css">
 <link href="banner.gif">
+<link href="jquery-ui.structure.css" media="screen" rel="stylesheet" type="text/css">
+<link href="jquery-ui.theme.css" media="screen" rel="stylesheet" type="text/css">
+
+
+
         <!-- Scripts -->
         <script src="jquery.js"></script>	
         <script type="text/javascript" src="bootstrap.js"></script>
+           <script type="text/javascript" src="jquery-ui.js"></script>
 <!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]--> <link rel="stylesheet" href="claro.css">
 
 <style>
 .dopinfo{
 	
-	
+	background:#FFC;
 	color:#F36;
 	height:100px;
 	display:none;}
@@ -141,11 +160,64 @@ $rows = $stmt->fetchall();
 	background:#60F;
 	}
 .clr{background:#90F;}
-</style>
+.paginitem
+{float:left;
+background:#55D3D7;
+margin-left:auto;
+margin-right:auto;
 
+width:40px;
+height:30px;
+margin-left:3px;
+font-style:oblique;
+color:#F03;
+
+}
+.ogr
+{width:120px;}
+</style>
+<link rel="stylesheet" href="superfish.css" media="screen">
+		<style> body { max-width: 40em; } </style>
+		
+		<script src="hoverIntent.js"></script>
+		<script src="superfish.js"></script>
+		<script>
+
+		(function($){ //create closure so we can safely use $ as alias for jQuery
+
+			$(document).ready(function(){
+
+				// initialise plugin
+				var example = $('#example').superfish({
+					//add options here if required
+				});
+
+				// buttons to demonstrate Superfish's public methods
+				$('.destroy').on('click', function(){
+					example.superfish('destroy');
+				});
+
+				$('.init').on('click', function(){
+					example.superfish();
+				});
+
+				$('.open').on('click', function(){
+					example.children('li:first').superfish('show');
+				});
+
+				$('.close').on('click', function(){
+					example.children('li:first').superfish('hide');
+				});
+			});
+
+		})(jQuery);
+
+
+		</script>
     </head>
     <body class="claro">
-       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <form method="post">
+       <div class="navbar navbar-default " role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -157,18 +229,77 @@ $rows = $stmt->fetchall();
           <a class="navbar-brand" href="http://almatybook.kz/">Букинист на Никольском</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-                          <li class="active"><a href="http://almatybook.kz/">Главная</a></li>
-      <li ><a href="EX/catalog.php">Каталог</a></li>
-                            <li ><a href="EX/zayava.php">Заявки</a></li>
+        
+                    <ul class="sf-menu" id="example">
+			
                             <li ><a href="EX/top.php">ТОП 100</a></li>
-              </ul>
-            </li>
-          </ul>
+               
+                                   <li class="current" ><a href="#">Жанры</a><ul><?php 
+								   foreach ($jenre as $sect=>$catr)
+								   {echo "<li class=\"current\"><a href=#>$sect</a> <ul>";
+foreach ($catr as $catid=>$catname)
+{echo "<li><a href=\"catalog.php?cat=$catid\">$catname</a></li>";
+
+}echo "</ul></li>";
+}
+?>
+ </ul></li>   
+      <li ><a href="#">Поиск</a>
+    
+      <ul>
+      <li><a href=#>Автор:</a><input type="text" name="authorlike" value="<?php echo $authorlike;?>"></li>
+      <li><a href=#>Название:</a><input type="text" name="booknamelike" value="<?php echo $booknamelike;?>"></li>
+     <li><a href=#>Издательство:</a><div class="ogr"><select name="publisher">
+      <option value="0">Все</option>
+      <?php foreach($publisherrow as $pr)
+	  {$idp=$pr['id_publisher'];
+	  $np=$pr['name_publisher'];
+	  $s="";
+	  if ($idp==$publisher) $s=" \"selected\" ";
+	  echo "<option value=\"$idp\" name=\"publisher\"".$s.">$np</option>";
+	  }
+	  ?>
+      
+      </select></div></li>
+      <li><a href=#>Год издания от</a>
+      <select name="yearfrom">
+      <?php
+	  for ($i=1924;$i<2014;$i++)
+	  { $s="";
+	  if ($i==$yearfrom) $s=" \"selected\" ";
+	  echo "<option name=\"yearfrom\" value=\"$i\"".$s.">$i</option>";
+	  }
+      ?>
+      </select></li>
+          <li><a href=#>Год издания до</a>
+      <select name="yearto">
+      <?php
+	  for ($i=1924;$i<2014;$i++)
+	  {
+		   $s="";
+	  if ($i==$yearto) $s=" \"selected\" ";
+	  echo "<option name=\"yearto\" value=\"$i\"".$s.">$i</option>";
+	  }
+      ?>
+      </select></li>
+     <li><input type="submit" value="Начать поиск">
+     </li>
+      </ul>
+      
+      
+      
+      
+      
+      </li>
+           </ul>
+          
         
         </div><!--/.nav-collapse -->
       </div>
     </div> 
+    <input type="hidden" name="cat" value="<?php echo $cat;?>">
+      <input type="hidden" name="currentpage" value="1">
+   </form> 
     <div width="100%" border="3" >
   <caption>
     catalog
@@ -178,7 +309,7 @@ $rows = $stmt->fetchall();
  <div class="bookinfo">  <div style="display:block;height:100px">
  <div class="row ">
 
-    <div class="col-md-4"><?php echo $row['name_book'];?></div>
+    <div class="col-md-4"><div ><?php echo $row['name_book'];?></div></div>
     <div class="col-md-4"><?php  $id_author= $row['id_author'];
 	$stmt2=$dbh->prepare("select name_author from books_author where id_author=$id_author;");
 	$stmt2->execute();
@@ -204,25 +335,75 @@ $rows = $stmt->fetchall();
 
 
  </div> <!-- /container -->
-  <hr><DIV class="hei100">&nbsp;</DIV>
+ <div class="cat"><?php echo $cat;?></div>
+ <div class="pagecount"><?php echo $pagecount;?></div>
+  <div class="currentpage"><?php echo $currentpage;?></div>
+  <div class="pagin"></div>
+
+
   <hr/>
             <footer>
                 <p> 2014Карасай-батыра 88(б) Без перерыва, без выходных</p>
             </footer>
-            
+          
 
 <script >
 
+var pagecount=$('.pagecount').html();
+var currentpage=$('.currentpage').html();
+var cat=$('.cat').html();
 
 
-$('.bookinfo').hover(function(){ $(this).addClass('activeinfo');$('.activeinfo .dopinfo').show(500);
-var dopinfoheight=$('.activeinfo .dopinfo').css('height');
-var dh=dopinfoheight.substr(1,3);
-dh=int(dh);
-if (dh<500) $('.activeinfo .dopinfo').css('height','50px');
-$('.activeinfo .dopinfo div').first().append("<div class='clr'>dh="+dh+"</div>");},function(){$( '.activeinfo .dopinfo').hide();$(this).removeClass('activeinfo'); });
+function pagin(pc,cp,cat){
+	var htm="";
+
+	var l=cp-0+4;
+
+for (i=cp-3;i<l;i++)
+{
+	
+	
+	if ((i>1)&&(i<pc))
+	htm=htm+"<div class='paginitem'><a href='catalog.php?cat="+cat+"&currentpage="+i+"&pagecount="+pc+"'>"+i+"</a></div>";
+	
+}
+	if (cp<=5) htm="<div class='paginitem'><a href='catalog.php?cat="+cat+"&currentpage=1&pagecount="+pc+"'>"+1+"</a></div>"+htm;
+	if (cp>5) htm="<div class='paginitem'><a href='catalog.php?cat="+cat+"&currentpage=1&pagecount="+pc+"'>"+1+"</a></div><div class=\"paginitem\">...</div>"+htm;
+	if (cp>=pc-5) htm=htm+"<div class='paginitem'><a href='catalog.php?cat="+cat+"&currentpage="+pc+"&pagecount="+pc+"'>"+pc+"</a></div>";
+	if (cp<pc-5) htm=htm+"<div class='paginitem'>.........</div><div class='paginitem'><a href='catalog.php?cat="+cat+"&currentpage="+pc+"&pagecount="+pc+"'>"+pc+"</a></div>";
+
+
+	return htm;	
+}
+
+var ht=pagin(pagecount,currentpage,cat);
+
+$('.pagin').html(ht);
+$('.cat').hide();
+$('.currentpage').hide();
+$('.pagecount').hide();
+
+$('.bookinfo').click(function(){ $(this).find('.dopinfo').toggle(500);
+var dopinfoheight=$(this).find('.dopinfo').css('height');
+
+var dh1=dopinfoheight.substr(0,1);
+
+var dh2=dopinfoheight.substr(1,2);
+
+if (dh2!='px') dh1=dh1+dh2;
+
+dh1=int(dh1);
+
+if (dh1<50) $(this).find('.dopinfo').css('height','50px');
+$(this).find('.dopinfo').find('.col-md-4 div').css('background-color',"#0F6");});
 
 
 </script>
+ <script>
+$(function() {
+$( "#menu" ).menu();
 
+});
+
+</script>
 </body></html>
